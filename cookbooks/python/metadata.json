@@ -1,42 +1,43 @@
 {
-  "recipes": {
-    "python::source": "Installs python from source.",
-    "python": "Installs python, pip, and virtualenv",
-    "python::pip": "Installs pip from source.",
-    "python::virtualenv": "Installs virtualenv using the python_pip resource.",
-    "python::package": "Installs python using packages."
-  },
-  "providing": {
-  },
-  "conflicting": {
-  },
-  "description": "Installs Python, pip and virtualenv. Includes LWRPs for managing Python packages with `pip` and `virtualenv` isolated Python environments.",
-  "maintainer": "Opscode, Inc.",
-  "name": "python",
-  "dependencies": {
-    "yum": ">= 0.0.0",
-    "build-essential": ">= 0.0.0"
-  },
-  "platforms": {
-    "freebsd": ">= 0.0.0",
-    "centos": ">= 0.0.0",
-    "redhat": ">= 0.0.0",
-    "fedora": ">= 0.0.0",
-    "debian": ">= 0.0.0",
-    "ubuntu": ">= 0.0.0"
-  },
-  "version": "1.0.8",
   "maintainer_email": "cookbooks@opscode.com",
-  "replacing": {
+  "attributes": {
+  },
+  "maintainer": "Opscode, Inc.",
+  "long_description": "",
+  "description": "Installs Python, pip and virtualenv. Includes LWRPs for managing Python packages with `pip` and `virtualenv` isolated Python environments.",
+  "name": "python",
+  "version": "1.2.2",
+  "platforms": {
+    "redhat": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "smartos": ">= 0.0.0",
+    "freebsd": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0",
+    "fedora": ">= 0.0.0"
   },
   "license": "Apache 2.0",
-  "long_description": "",
-  "groupings": {
-  },
-  "attributes": {
+  "suggestions": {
   },
   "recommendations": {
   },
-  "suggestions": {
+  "dependencies": {
+    "build-essential": ">= 0.0.0",
+    "yum": ">= 0.0.0"
+  },
+  "recipes": {
+    "python": "Installs python, pip, and virtualenv",
+    "python::source": "Installs python from source.",
+    "python::virtualenv": "Installs virtualenv using the python_pip resource.",
+    "python::package": "Installs python using packages.",
+    "python::pip": "Installs pip from source."
+  },
+  "conflicting": {
+  },
+  "groupings": {
+  },
+  "providing": {
+  },
+  "replacing": {
   }
 }

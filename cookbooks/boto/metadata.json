@@ -1,190 +1,190 @@
 {
-  "platforms": {
-  },
-  "recommendations": {
-  },
-  "license": "Apache 2.0",
-  "suggestions": {
-  },
-  "description": "Installs/Configures boto",
-  "maintainer": "Chris Fordham",
-  "groupings": {
+  "recipes": {
+    "boto::s3_store_file": "Stores a local file to an S3 bucket.",
+    "boto::configure": "Configures boto.",
+    "boto::s3_fetch_and_extract_file": "Fetches and extracts a file from S3.",
+    "boto::install_from_source": "Installs boto from source.",
+    "boto::install_from_package": "Installs boto by package.",
+    "boto::s3_fetch_file": "Fetches and stores a file locally from S3.",
+    "boto::install_from_pip": "Installs boto using PIP.",
+    "boto::default": "Installs & configures boto.",
+    "boto::install": "Installs boto."
   },
   "providing": {
   },
-  "conflicting": {
+  "suggestions": {
+  },
+  "maintainer": "Chris Fordham",
+  "long_description": "Description\n===========\n\nA Chef cookbook for installing and configuring boto.\n\n# Cookbook Dependencies\n\n* python\n* build-essential\n\nUsage\n=====\n\nExample node.json to install & configure boto, plus fetch a file from S3:\n\n\t{\n\t  \"boto\": {\n\t    \"install_method\":\"pip\",\n\t    \"aws_access_key_id\":\"foo\",\n\t    \"aws_secret_access_key\":\"bar\",\n\t    \"s3_fetch_bucket\":\"foo_bucket\",\n\t    \"s3_fetch_file\":\"foo_file.txt\",\n\t    \"s3_fetch_file_destination\":\"/tmp/foo_file.txt\",\n\t  },\n\t  \"run_list\": [ \"recipe[boto::default]\", \"recipe[boto::s3_fetch_file]\" ]\n\t}\n\nSame, but fetch and extract a zip file from S3 instead:\n\n\t{\n\t  \"boto\": {\n\t    \"install_method\":\"pip\",\n\t    \"aws_access_key_id\":\"foo\",\n\t    \"aws_secret_access_key\":\"bar\",\n\t    \"s3_fetch_bucket\":\"foo_bucket\",\n\t    \"s3_fetch_file\":\"foo_file.zip\",\n\t    \"s3_fetch_file_destination\":\"/tmp/foo_file.zip\",\n\t    \"s3_file_extract_destination\":\"/root\"\n\t  },\n\t  \"run_list\": [ \"recipe[boto::default]\", \"recipe[boto::s3_fetch_and_extract_file]\" ]\n\t}\n\nLicense and Author\n==================\n\nAuthor:: Chris Fordham (<chris.fordham@rightscale.com>)\n\nCopyright 2012, RightScale, Inc.\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.",
+  "groupings": {
   },
   "dependencies": {
     "python": ">= 0.0.0"
   },
-  "name": "boto",
+  "license": "Apache 2.0",
   "version": "0.0.1",
+  "conflicting": {
+  },
   "attributes": {
-    "boto/s3_fetch_file_destination": {
-      "display_name": "boto S3 Fetch File Dest",
-      "choice": [
-
-      ],
-      "type": "string",
-      "description": "The destination file/folder to store the fetched file with s3_fetch_file",
-      "required": "optional",
-      "calculated": false,
+    "boto/s3_fetch_bucket": {
       "recipes": [
         "boto::s3_fetch_file",
         "boto::s3_fetch_and_extract_file"
-      ]
-    },
-    "boto/aws_access_key_id": {
-      "display_name": "boto AWS Access Key ID",
+      ],
+      "display_name": "boto S3 Fetch Bucket",
+      "required": "optional",
+      "calculated": false,
+      "type": "string",
       "choice": [
 
       ],
-      "type": "string",
-      "description": "AWS Access Key ID for boto.",
-      "required": "required",
-      "calculated": false,
+      "description": "The bucket to use when fetching a file with s3_fetch_file."
+    },
+    "boto/num_retries": {
       "recipes": [
         "boto::configure"
-      ]
+      ],
+      "display_name": "boto Number Retries",
+      "required": "optional",
+      "calculated": false,
+      "type": "string",
+      "choice": [
+
+      ],
+      "default": "10",
+      "description": "The number of times boto retries an action."
+    },
+    "boto/s3_file_extract_destination": {
+      "recipes": [
+        "boto::s3_fetch_and_extract_file"
+      ],
+      "display_name": "boto S3 File Extract Dest",
+      "required": "optional",
+      "calculated": false,
+      "type": "string",
+      "choice": [
+
+      ],
+      "description": "The destination folder to extract the fetched file with s3_fetch_file"
+    },
+    "boto/s3_fetch_file_destination": {
+      "recipes": [
+        "boto::s3_fetch_file",
+        "boto::s3_fetch_and_extract_file"
+      ],
+      "display_name": "boto S3 Fetch File Dest",
+      "required": "optional",
+      "calculated": false,
+      "type": "string",
+      "choice": [
+
+      ],
+      "description": "The destination file/folder to store the fetched file with s3_fetch_file"
+    },
+    "boto/debug": {
+      "recipes": [
+        "boto::configure"
+      ],
+      "display_name": "boto Debug Level",
+      "required": "optional",
+      "calculated": false,
+      "type": "string",
+      "choice": [
+
+      ],
+      "default": "0",
+      "description": "The debug level for boto."
+    },
+    "boto/s3_store_bucket": {
+      "recipes": [
+        "boto::s3_store_file"
+      ],
+      "display_name": "boto S3 Store Bucket",
+      "required": "optional",
+      "calculated": false,
+      "type": "string",
+      "choice": [
+
+      ],
+      "description": "The bucket to use when storing a file with s3_store_file."
+    },
+    "boto/s3_store_file": {
+      "recipes": [
+        "boto::s3_store_file"
+      ],
+      "display_name": "boto S3 Store File",
+      "required": "optional",
+      "calculated": false,
+      "type": "string",
+      "choice": [
+
+      ],
+      "description": "The local file to store with in S3 with s3_store_file."
+    },
+    "boto/aws_secret_access_key": {
+      "recipes": [
+        "boto::configure"
+      ],
+      "display_name": "boto AWS Secret Access Key",
+      "required": "required",
+      "calculated": false,
+      "type": "string",
+      "choice": [
+
+      ],
+      "description": "AWS Secrete Access Key for boto."
+    },
+    "boto/aws_access_key_id": {
+      "recipes": [
+        "boto::configure"
+      ],
+      "display_name": "boto AWS Access Key ID",
+      "required": "required",
+      "calculated": false,
+      "type": "string",
+      "choice": [
+
+      ],
+      "description": "AWS Access Key ID for boto."
     },
     "boto/install_method": {
+      "recipes": [
+        "boto::install"
+      ],
       "display_name": "boto Install Method",
+      "required": "recommended",
+      "calculated": false,
+      "type": "string",
       "choice": [
         "package",
         "pip",
         "source"
       ],
-      "type": "string",
-      "description": "The method used to install the boto library.",
       "default": "package",
-      "required": "recommended",
-      "calculated": false,
-      "recipes": [
-        "boto::install"
-      ]
-    },
-    "boto/debug": {
-      "display_name": "boto Debug Level",
-      "choice": [
-
-      ],
-      "type": "string",
-      "description": "The debug level for boto.",
-      "default": "0",
-      "required": "optional",
-      "calculated": false,
-      "recipes": [
-        "boto::configure"
-      ]
+      "description": "The method used to install the boto library."
     },
     "boto/s3_fetch_file": {
+      "recipes": [
+        "boto::s3_fetch_file",
+        "boto::s3_fetch_and_extract_file"
+      ],
       "display_name": "boto S3 Fetch File",
-      "choice": [
-
-      ],
-      "type": "string",
-      "description": "The S3 key/file to fetch with s3_fetch_file.",
       "required": "optional",
       "calculated": false,
-      "recipes": [
-        "boto::s3_fetch_file",
-        "boto::s3_fetch_and_extract_file"
-      ]
-    },
-    "boto/s3_fetch_bucket": {
-      "display_name": "boto S3 Fetch Bucket",
+      "type": "string",
       "choice": [
 
       ],
-      "type": "string",
-      "description": "The bucket to use when fetching a file with s3_fetch_file.",
-      "required": "optional",
-      "calculated": false,
-      "recipes": [
-        "boto::s3_fetch_file",
-        "boto::s3_fetch_and_extract_file"
-      ]
-    },
-    "boto/s3_store_file": {
-      "display_name": "boto S3 Store File",
-      "choice": [
-
-      ],
-      "type": "string",
-      "description": "The local file to store with in S3 with s3_store_file.",
-      "required": "optional",
-      "calculated": false,
-      "recipes": [
-        "boto::s3_store_file"
-      ]
-    },
-    "boto/num_retries": {
-      "display_name": "boto Number Retries",
-      "choice": [
-
-      ],
-      "type": "string",
-      "description": "The number of times boto retries an action.",
-      "default": "10",
-      "required": "optional",
-      "calculated": false,
-      "recipes": [
-        "boto::configure"
-      ]
-    },
-    "boto/aws_secret_access_key": {
-      "display_name": "boto AWS Secret Access Key",
-      "choice": [
-
-      ],
-      "type": "string",
-      "description": "AWS Secrete Access Key for boto.",
-      "required": "required",
-      "calculated": false,
-      "recipes": [
-        "boto::configure"
-      ]
-    },
-    "boto/s3_file_extract_destination": {
-      "display_name": "boto S3 File Extract Dest",
-      "choice": [
-
-      ],
-      "type": "string",
-      "description": "The destination folder to extract the fetched file with s3_fetch_file",
-      "required": "optional",
-      "calculated": false,
-      "recipes": [
-        "boto::s3_fetch_and_extract_file"
-      ]
-    },
-    "boto/s3_store_bucket": {
-      "display_name": "boto S3 Store Bucket",
-      "choice": [
-
-      ],
-      "type": "string",
-      "description": "The bucket to use when storing a file with s3_store_file.",
-      "required": "optional",
-      "calculated": false,
-      "recipes": [
-        "boto::s3_store_file"
-      ]
+      "description": "The S3 key/file to fetch with s3_fetch_file."
     }
   },
-  "long_description": "Description\n===========\n\nA Chef cookbook for installing and configuring boto.\n\n# Cookbook Dependencies\n\n* python\n* build-essential\n\nUsage\n=====\n\nExample node.json to install & configure boto, plus fetch a file from S3:\n\n\t{\n\t  \"boto\": {\n\t    \"install_method\":\"pip\",\n\t    \"aws_access_key_id\":\"foo\",\n\t    \"aws_secret_access_key\":\"bar\",\n\t    \"s3_fetch_bucket\":\"foo_bucket\",\n\t    \"s3_fetch_file\":\"foo_file.txt\",\n\t    \"s3_fetch_file_destination\":\"/tmp/foo_file.txt\",\n\t  },\n\t  \"run_list\": [ \"recipe[boto::default]\", \"recipe[boto::s3_fetch_file]\" ]\n\t}\n\nSame, but fetch and extract a zip file from S3 instead:\n\n\t{\n\t  \"boto\": {\n\t    \"install_method\":\"pip\",\n\t    \"aws_access_key_id\":\"foo\",\n\t    \"aws_secret_access_key\":\"bar\",\n\t    \"s3_fetch_bucket\":\"foo_bucket\",\n\t    \"s3_fetch_file\":\"foo_file.zip\",\n\t    \"s3_fetch_file_destination\":\"/tmp/foo_file.zip\",\n\t    \"s3_file_extract_destination\":\"/root\"\n\t  },\n\t  \"run_list\": [ \"recipe[boto::default]\", \"recipe[boto::s3_fetch_and_extract_file]\" ]\n\t}\n\nLicense and Author\n==================\n\nAuthor:: Chris Fordham (<chris.fordham@rightscale.com>)\n\nCopyright 2012, RightScale, Inc.\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.",
-  "maintainer_email": "chris@xhost.com.au",
-  "recipes": {
-    "boto::s3_store_file": "Stores a local file to an S3 bucket.",
-    "boto::s3_fetch_and_extract_file": "Fetches and extracts a file from S3.",
-    "boto::install_from_source": "Installs boto from source.",
-    "boto::install_from_pip": "Installs boto using PIP.",
-    "boto::default": "Installs & configures boto.",
-    "boto::s3_fetch_file": "Fetches and stores a file locally from S3.",
-    "boto::configure": "Configures boto.",
-    "boto::install": "Installs boto.",
-    "boto::install_from_package": "Installs boto by package."
-  },
   "replacing": {
-  }
+  },
+  "recommendations": {
+  },
+  "platforms": {
+  },
+  "maintainer_email": "chris@xhost.com.au",
+  "name": "boto",
+  "description": "Installs/Configures boto"
 }

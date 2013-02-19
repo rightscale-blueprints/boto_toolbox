@@ -1,52 +1,39 @@
 {
-  "suggestions": {
-  },
-  "groupings": {
-  },
-  "providing": {
-  },
-  "description": "Installs/Configures system elements such as the hostname and timezone.",
   "name": "system",
+  "replacing": {
+  },
+  "maintainer_email": "chris@xhost.com.au",
+  "license": "Apache 2.0",
+  "description": "Installs/Configures system elements such as the hostname and timezone.",
+  "version": "0.0.1",
   "dependencies": {
     "cron": ">= 0.0.0"
   },
-  "license": "Apache 2.0",
-  "conflicting": {
+  "recipes": {
+    "system::timezone": "Sets the system timezone.",
+    "system::hostname": "Sets the system hostname.",
+    "system::upgrade_packages": "Upgrades the system's installed packages.",
+    "system::default": "Set the system hostname and timezone."
   },
-  "recommendations": {
+  "providing": {
   },
-  "platforms": {
-    "centos": ">= 0.0.0",
-    "debian": ">= 0.0.0",
-    "redhat": ">= 0.0.0",
-    "fedora": ">= 0.0.0",
-    "archlinux": ">= 0.0.0",
-    "ubuntu": ">= 0.0.0"
-  },
-  "version": "0.0.1",
-  "maintainer": "Chris Fordham",
   "attributes": {
-    "system/short_hostname": {
-      "display_name": "Short Hostname",
-      "description": "The short hostname that you would like this node to have, e.g. kryten",
-      "default": "localhost",
-      "required": "recommended",
-      "calculated": false,
+    "system/domain_name": {
       "choice": [
 
       ],
-      "type": "string",
+      "description": "The domain name that you would like this node to have, e.g. domain.suf. Note: Only set a valid domain name to satisfy the resolution of a FQDN; use ignore:ignore for no domain name.",
+      "default": "localdomain",
+      "calculated": false,
       "recipes": [
         "system::hostname",
         "system::default"
-      ]
+      ],
+      "display_name": "Domain Name",
+      "type": "string",
+      "required": "recommended"
     },
     "system/timezone": {
-      "display_name": "Timezone",
-      "description": "Sets the system time to the timezone of the specified input, which must be a valid zoneinfo/tz database entry.  If the input is 'unset' the timezone will use the 'localtime' that's defined in your RightScale account under Settings -> User -> Preferences tab.  You can find a list of valid examples from the timezone pulldown bar in the Preferences tab. The server will not be updated for daylight savings time.  Ex: US/Pacific, US/Eastern",
-      "default": "UTC",
-      "required": "optional",
-      "calculated": false,
       "choice": [
         "Africa/Casablanca",
         "America/Bogota",
@@ -117,36 +104,49 @@
         "UTC",
         "localtime"
       ],
-      "type": "string",
+      "description": "Sets the system time to the timezone of the specified input, which must be a valid zoneinfo/tz database entry.  If the input is 'unset' the timezone will use the 'localtime' that's defined in your RightScale account under Settings -> User -> Preferences tab.  You can find a list of valid examples from the timezone pulldown bar in the Preferences tab. The server will not be updated for daylight savings time.  Ex: US/Pacific, US/Eastern",
+      "default": "UTC",
+      "calculated": false,
       "recipes": [
         "system::timezone",
         "system::default"
-      ]
+      ],
+      "display_name": "Timezone",
+      "type": "string",
+      "required": "optional"
     },
-    "system/domain_name": {
-      "display_name": "Domain Name",
-      "description": "The domain name that you would like this node to have, e.g. domain.suf. Note: Only set a valid domain name to satisfy the resolution of a FQDN; use ignore:ignore for no domain name.",
-      "default": "localdomain",
-      "required": "recommended",
-      "calculated": false,
+    "system/short_hostname": {
       "choice": [
 
       ],
-      "type": "string",
+      "description": "The short hostname that you would like this node to have, e.g. kryten",
+      "default": "localhost",
+      "calculated": false,
       "recipes": [
         "system::hostname",
         "system::default"
-      ]
+      ],
+      "display_name": "Short Hostname",
+      "type": "string",
+      "required": "recommended"
     }
   },
-  "maintainer_email": "chris@xhost.com.au",
-  "long_description": "Description\n===========\n\nRequirements\n============\n\nAttributes\n==========\n\nUsage\n=====\n\n",
-  "recipes": {
-    "system::hostname": "Sets the system hostname.",
-    "system::upgrade_packages": "Upgrades the system's installed packages.",
-    "system::timezone": "Sets the system timezone.",
-    "system::default": "Set the system hostname and timezone."
+  "conflicting": {
   },
-  "replacing": {
-  }
+  "suggestions": {
+  },
+  "platforms": {
+    "archlinux": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0",
+    "fedora": ">= 0.0.0",
+    "redhat": ">= 0.0.0",
+    "centos": ">= 0.0.0"
+  },
+  "recommendations": {
+  },
+  "long_description": "Description\n===========\n\nRequirements\n============\n\nAttributes\n==========\n\nUsage\n=====\n\n",
+  "groupings": {
+  },
+  "maintainer": "Chris Fordham"
 }
