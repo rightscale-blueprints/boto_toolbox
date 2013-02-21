@@ -1,46 +1,30 @@
 {
-  "providing": {
-  },
-  "dependencies": {
-    "cron": ">= 0.0.0"
-  },
-  "platforms": {
-    "centos": ">= 0.0.0",
-    "ubuntu": ">= 0.0.0",
-    "fedora": ">= 0.0.0",
-    "debian": ">= 0.0.0",
-    "archlinux": ">= 0.0.0",
-    "redhat": ">= 0.0.0"
-  },
-  "maintainer_email": "chris@xhost.com.au",
-  "groupings": {
-  },
-  "license": "Apache 2.0",
-  "long_description": "Description\n===========\n\nRequirements\n============\n\nAttributes\n==========\n\nUsage\n=====\n\n",
   "version": "0.0.1",
   "description": "Installs/Configures system elements such as the hostname and timezone.",
-  "name": "system",
-  "maintainer": "Chris Fordham",
-  "recipes": {
-    "system::hostname": "Sets the system hostname.",
-    "system::timezone": "Sets the system timezone.",
-    "system::upgrade_packages": "Upgrades the system's installed packages.",
-    "system::default": "Set the system hostname and timezone."
+  "providing": {
   },
-  "replacing": {
-  },
-  "conflicting": {
-  },
+  "maintainer_email": "chris@xhost.com.au",
   "attributes": {
-    "system/timezone": {
-      "default": "UTC",
-      "description": "Sets the system time to the timezone of the specified input, which must be a valid zoneinfo/tz database entry.  If the input is 'unset' the timezone will use the 'localtime' that's defined in your RightScale account under Settings -> User -> Preferences tab.  You can find a list of valid examples from the timezone pulldown bar in the Preferences tab. The server will not be updated for daylight savings time.  Ex: US/Pacific, US/Eastern",
-      "required": "optional",
-      "display_name": "Timezone",
+    "system/domain_name": {
+      "description": "The domain name that you would like this node to have, e.g. domain.suf. Note: Only set a valid domain name to satisfy the resolution of a FQDN; use ignore:ignore for no domain name.",
+      "display_name": "Domain Name",
+      "required": "recommended",
+      "calculated": false,
+      "choice": [
+
+      ],
+      "type": "string",
       "recipes": [
-        "system::timezone",
+        "system::hostname",
         "system::default"
       ],
+      "default": "localdomain"
+    },
+    "system/timezone": {
+      "description": "Sets the system time to the timezone of the specified input, which must be a valid zoneinfo/tz database entry.  If the input is 'unset' the timezone will use the 'localtime' that's defined in your RightScale account under Settings -> User -> Preferences tab.  You can find a list of valid examples from the timezone pulldown bar in the Preferences tab. The server will not be updated for daylight savings time.  Ex: US/Pacific, US/Eastern",
+      "display_name": "Timezone",
+      "required": "optional",
+      "calculated": false,
       "choice": [
         "Africa/Casablanca",
         "America/Bogota",
@@ -111,42 +95,58 @@
         "UTC",
         "localtime"
       ],
-      "calculated": false,
-      "type": "string"
+      "type": "string",
+      "recipes": [
+        "system::timezone",
+        "system::default"
+      ],
+      "default": "UTC"
     },
     "system/short_hostname": {
-      "default": "localhost",
       "description": "The short hostname that you would like this node to have, e.g. kryten",
-      "required": "recommended",
       "display_name": "Short Hostname",
-      "recipes": [
-        "system::hostname",
-        "system::default"
-      ],
-      "choice": [
-
-      ],
-      "calculated": false,
-      "type": "string"
-    },
-    "system/domain_name": {
-      "default": "localdomain",
-      "description": "The domain name that you would like this node to have, e.g. domain.suf. Note: Only set a valid domain name to satisfy the resolution of a FQDN; use ignore:ignore for no domain name.",
       "required": "recommended",
-      "display_name": "Domain Name",
+      "calculated": false,
+      "choice": [
+
+      ],
+      "type": "string",
       "recipes": [
         "system::hostname",
         "system::default"
       ],
-      "choice": [
-
-      ],
-      "calculated": false,
-      "type": "string"
+      "default": "localhost"
     }
   },
   "suggestions": {
   },
+  "name": "system",
+  "maintainer": "Chris Fordham",
+  "replacing": {
+  },
   "recommendations": {
+  },
+  "license": "Apache 2.0",
+  "long_description": "Description\n===========\n\nRequirements\n============\n\nAttributes\n==========\n\nUsage\n=====\n\n",
+  "conflicting": {
+  },
+  "dependencies": {
+    "cron": ">= 0.0.0"
+  },
+  "platforms": {
+    "ubuntu": ">= 0.0.0",
+    "fedora": ">= 0.0.0",
+    "archlinux": ">= 0.0.0",
+    "debian": ">= 0.0.0",
+    "redhat": ">= 0.0.0",
+    "centos": ">= 0.0.0"
+  },
+  "groupings": {
+  },
+  "recipes": {
+    "system::timezone": "Sets the system timezone.",
+    "system::upgrade_packages": "Upgrades the system's installed packages.",
+    "system::hostname": "Sets the system hostname.",
+    "system::default": "Set the system hostname and timezone."
   }
 }
