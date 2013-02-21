@@ -1,241 +1,268 @@
 {
-  "version": "0.0.1",
-  "description": "Installs/Configures boto",
-  "conflicting": {
+  "license": "Apache 2.0",
+  "replacing": {
   },
+  "recommendations": {
+  },
+  "maintainer": "Chris Fordham",
+  "description": "Installs/Configures boto",
   "dependencies": {
     "python": ">= 0.0.0"
   },
-  "suggestions": {
-  },
-  "maintainer": "Chris Fordham",
-  "recommendations": {
-  },
-  "maintainer_email": "chris@xhost.com.au",
-  "providing": {
-  },
-  "long_description": "Description\n===========\n\nA Chef cookbook for installing and configuring boto.\n\n# Cookbook Dependencies\n\n* python\n* build-essential\n\nUsage\n=====\n\nExample node.json to install & configure boto, plus fetch a file from S3:\n\n\t{\n\t  \"boto\": {\n\t    \"install_method\":\"pip\",\n\t    \"aws_access_key_id\":\"foo\",\n\t    \"aws_secret_access_key\":\"bar\",\n\t    \"s3_fetch_bucket\":\"foo_bucket\",\n\t    \"s3_fetch_file\":\"foo_file.txt\",\n\t    \"s3_fetch_file_destination\":\"/tmp/foo_file.txt\",\n\t  },\n\t  \"run_list\": [ \"recipe[boto::default]\", \"recipe[boto::s3_fetch_file]\" ]\n\t}\n\nSame, but fetch and extract a zip file from S3 instead:\n\n\t{\n\t  \"boto\": {\n\t    \"install_method\":\"pip\",\n\t    \"aws_access_key_id\":\"foo\",\n\t    \"aws_secret_access_key\":\"bar\",\n\t    \"s3_fetch_bucket\":\"foo_bucket\",\n\t    \"s3_fetch_file\":\"foo_file.zip\",\n\t    \"s3_fetch_file_destination\":\"/tmp/foo_file.zip\",\n\t    \"s3_file_extract_destination\":\"/root\"\n\t  },\n\t  \"run_list\": [ \"recipe[boto::default]\", \"recipe[boto::s3_fetch_and_extract_file]\" ]\n\t}\n\nLicense and Author\n==================\n\nAuthor:: Chris Fordham (<chris.fordham@rightscale.com>)\n\nCopyright 2012, RightScale, Inc.\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.",
-  "recipes": {
-    "boto::install_from_pip": "Installs boto using PIP.",
-    "boto::s3_fetch_and_extract_file": "Fetches and extracts a file from S3.",
-    "boto::ebs_create_snapshot": "Creates an EBS snapshot from a given EBS volume ID.",
-    "boto::s3_store_file": "Stores a local file to an S3 bucket.",
-    "boto::install_from_package": "Installs boto by package.",
-    "boto::default": "Installs & configures boto.",
-    "boto::s3_fetch_file": "Fetches and stores a file locally from S3.",
-    "boto::install_from_source": "Installs boto from source.",
-    "boto::configure": "Configures boto.",
-    "boto::install": "Installs boto."
-  },
-  "platforms": {
-  },
-  "name": "boto",
   "attributes": {
-    "boto/num_retries": {
-      "description": "The number of times boto retries an action.",
-      "type": "string",
+    "boto/s3_fetch_file_destination": {
+      "required": "optional",
       "calculated": false,
-      "recipes": [
-        "boto::configure"
-      ],
-      "display_name": "boto Number Retries",
-      "default": "10",
+      "type": "string",
+      "description": "The destination file/folder to store the fetched file with s3_fetch_file",
       "choice": [
 
       ],
-      "required": "optional"
+      "recipes": [
+        "boto::s3_fetch_file",
+        "boto::s3_fetch_and_extract_file"
+      ],
+      "display_name": "boto S3 Fetch File Dest"
+    },
+    "boto/s3_store_bucket": {
+      "required": "optional",
+      "calculated": false,
+      "type": "string",
+      "description": "The bucket to use when storing a file with s3_store_file.",
+      "choice": [
+
+      ],
+      "recipes": [
+        "boto::s3_store_file"
+      ],
+      "display_name": "boto S3 Store Bucket"
+    },
+    "boto/s3_fetch_file": {
+      "required": "optional",
+      "calculated": false,
+      "type": "string",
+      "description": "The S3 key/file to fetch with s3_fetch_file.",
+      "choice": [
+
+      ],
+      "recipes": [
+        "boto::s3_fetch_file",
+        "boto::s3_fetch_and_extract_file"
+      ],
+      "display_name": "boto S3 Fetch File"
     },
     "boto/aws_secret_access_key": {
-      "description": "AWS Secrete Access Key for boto.",
-      "type": "string",
+      "required": "required",
       "calculated": false,
-      "recipes": [
-        "boto::configure"
-      ],
-      "display_name": "boto AWS Secret Access Key",
+      "type": "string",
+      "description": "AWS Secrete Access Key for boto.",
       "choice": [
 
       ],
-      "required": "required"
+      "recipes": [
+        "boto::configure"
+      ],
+      "display_name": "boto AWS Secret Access Key"
+    },
+    "boto/aws_access_key_id": {
+      "required": "required",
+      "calculated": false,
+      "type": "string",
+      "description": "AWS Access Key ID for boto.",
+      "choice": [
+
+      ],
+      "recipes": [
+        "boto::configure"
+      ],
+      "display_name": "boto AWS Access Key ID"
+    },
+    "boto/ebs/snapshot/id": {
+      "required": "required",
+      "calculated": false,
+      "type": "string",
+      "description": "The EBS snapshot ID to use for operations such as backup and restore.",
+      "choice": [
+
+      ],
+      "recipes": [
+        "boto::ebs_restore_snapshot"
+      ],
+      "display_name": "boto EBS snapshot ID"
+    },
+    "boto/s3_store_file": {
+      "required": "optional",
+      "calculated": false,
+      "type": "string",
+      "description": "The local file to store with in S3 with s3_store_file.",
+      "choice": [
+
+      ],
+      "recipes": [
+        "boto::s3_store_file"
+      ],
+      "display_name": "boto S3 Store File"
+    },
+    "boto/s3_file_extract_destination": {
+      "required": "optional",
+      "calculated": false,
+      "type": "string",
+      "description": "The destination folder to extract the fetched file with s3_fetch_file",
+      "choice": [
+
+      ],
+      "recipes": [
+        "boto::s3_fetch_and_extract_file"
+      ],
+      "display_name": "boto S3 File Extract Dest"
+    },
+    "boto/debug": {
+      "required": "optional",
+      "calculated": false,
+      "type": "string",
+      "description": "The debug level for boto.",
+      "choice": [
+
+      ],
+      "default": "0",
+      "recipes": [
+        "boto::configure"
+      ],
+      "display_name": "boto Debug Level"
     },
     "boto/install_method": {
-      "description": "The method used to install the boto library.",
-      "type": "string",
+      "required": "recommended",
       "calculated": false,
-      "recipes": [
-        "boto::install"
-      ],
-      "display_name": "boto Install Method",
-      "default": "package",
+      "type": "string",
+      "description": "The method used to install the boto library.",
       "choice": [
         "package",
         "pip",
         "source"
       ],
-      "required": "recommended"
-    },
-    "boto/ebs/volume/id": {
-      "description": "The EBS volume ID to use for operations such as backup and restore.",
-      "type": "string",
-      "calculated": false,
+      "default": "package",
       "recipes": [
-        "boto::ebs_create_snapshot"
+        "boto::install"
       ],
-      "display_name": "boto EBS volume ID",
-      "default": null,
+      "display_name": "boto Install Method"
+    },
+    "boto/s3_fetch_bucket": {
+      "required": "optional",
+      "calculated": false,
+      "type": "string",
+      "description": "The bucket to use when fetching a file with s3_fetch_file.",
       "choice": [
 
       ],
-      "required": "required"
-    },
-    "boto/s3_store_file": {
-      "description": "The local file to store with in S3 with s3_store_file.",
-      "type": "string",
-      "calculated": false,
       "recipes": [
-        "boto::s3_store_file"
+        "boto::s3_fetch_file",
+        "boto::s3_fetch_and_extract_file"
       ],
-      "display_name": "boto S3 Store File",
+      "display_name": "boto S3 Fetch Bucket"
+    },
+    "boto/num_retries": {
+      "required": "optional",
+      "calculated": false,
+      "type": "string",
+      "description": "The number of times boto retries an action.",
       "choice": [
 
       ],
-      "required": "optional"
+      "default": "10",
+      "recipes": [
+        "boto::configure"
+      ],
+      "display_name": "boto Number Retries"
     },
     "boto/ec2/region/name": {
-      "description": "The EC2 region used for operations.",
-      "type": "string",
+      "required": "recommended",
       "calculated": false,
-      "recipes": [
-        "boto::default",
-        "boto::ebs_create_snapshot"
-      ],
-      "display_name": "boto EC2 region name",
-      "default": "us-east-1",
+      "type": "string",
+      "description": "The EC2 region used for operations.",
       "choice": [
         "us-east-1",
         "us-west-1",
         "eu-west-1",
         "ap-southeast-1"
       ],
-      "required": "recommended"
-    },
-    "boto/s3_file_extract_destination": {
-      "description": "The destination folder to extract the fetched file with s3_fetch_file",
-      "type": "string",
-      "calculated": false,
-      "recipes": [
-        "boto::s3_fetch_and_extract_file"
-      ],
-      "display_name": "boto S3 File Extract Dest",
-      "choice": [
-
-      ],
-      "required": "optional"
-    },
-    "boto/debug": {
-      "description": "The debug level for boto.",
-      "type": "string",
-      "calculated": false,
-      "recipes": [
-        "boto::configure"
-      ],
-      "display_name": "boto Debug Level",
-      "default": "0",
-      "choice": [
-
-      ],
-      "required": "optional"
-    },
-    "boto/aws_access_key_id": {
-      "description": "AWS Access Key ID for boto.",
-      "type": "string",
-      "calculated": false,
-      "recipes": [
-        "boto::configure"
-      ],
-      "display_name": "boto AWS Access Key ID",
-      "choice": [
-
-      ],
-      "required": "required"
-    },
-    "boto/s3_fetch_file_destination": {
-      "description": "The destination file/folder to store the fetched file with s3_fetch_file",
-      "type": "string",
-      "calculated": false,
-      "recipes": [
-        "boto::s3_fetch_file",
-        "boto::s3_fetch_and_extract_file"
-      ],
-      "display_name": "boto S3 Fetch File Dest",
-      "choice": [
-
-      ],
-      "required": "optional"
-    },
-    "boto/s3_fetch_bucket": {
-      "description": "The bucket to use when fetching a file with s3_fetch_file.",
-      "type": "string",
-      "calculated": false,
-      "recipes": [
-        "boto::s3_fetch_file",
-        "boto::s3_fetch_and_extract_file"
-      ],
-      "display_name": "boto S3 Fetch Bucket",
-      "choice": [
-
-      ],
-      "required": "optional"
-    },
-    "boto/s3_store_bucket": {
-      "description": "The bucket to use when storing a file with s3_store_file.",
-      "type": "string",
-      "calculated": false,
-      "recipes": [
-        "boto::s3_store_file"
-      ],
-      "display_name": "boto S3 Store Bucket",
-      "choice": [
-
-      ],
-      "required": "optional"
-    },
-    "boto/ec2/region/endpoint": {
-      "description": "The EC2 region endpoint used for operations.",
-      "type": "string",
-      "calculated": false,
+      "default": "us-east-1",
       "recipes": [
         "boto::default",
         "boto::ebs_create_snapshot"
       ],
-      "display_name": "boto EC2 region endpoint",
-      "default": "us-east-1.ec2.amazonaws.com",
+      "display_name": "boto EC2 region name"
+    },
+    "boto/ec2/region/endpoint": {
+      "required": "recommended",
+      "calculated": false,
+      "type": "string",
+      "description": "The EC2 region endpoint used for operations.",
       "choice": [
         "us-east-1.ec2.amazonaws.com",
         "us-west-1.ec2.amazonaws.com",
         "eu-west-1.ec2.amazonaws.com",
         "ap-southeast-1.ec2.amazonaws.com"
       ],
-      "required": "recommended"
-    },
-    "boto/s3_fetch_file": {
-      "description": "The S3 key/file to fetch with s3_fetch_file.",
-      "type": "string",
-      "calculated": false,
+      "default": "us-east-1.ec2.amazonaws.com",
       "recipes": [
-        "boto::s3_fetch_file",
-        "boto::s3_fetch_and_extract_file"
+        "boto::default",
+        "boto::ebs_create_snapshot"
       ],
-      "display_name": "boto S3 Fetch File",
+      "display_name": "boto EC2 region endpoint"
+    },
+    "boto/ebs/volume/size": {
+      "required": "required",
+      "calculated": false,
+      "type": "string",
+      "description": "The EBS volume size to use for operations such as backup and restore.",
       "choice": [
 
       ],
-      "required": "optional"
+      "default": "1",
+      "recipes": [
+        "boto::ebs_create_snapshot"
+      ],
+      "display_name": "boto EBS volume size"
+    },
+    "boto/ebs/volume/id": {
+      "required": "required",
+      "calculated": false,
+      "type": "string",
+      "description": "The EBS volume ID to use for operations such as backup and restore.",
+      "choice": [
+
+      ],
+      "recipes": [
+        "boto::ebs_create_snapshot"
+      ],
+      "display_name": "boto EBS volume ID"
     }
   },
-  "replacing": {
+  "maintainer_email": "chris@xhost.com.au",
+  "version": "0.0.1",
+  "platforms": {
   },
-  "license": "Apache 2.0",
+  "name": "boto",
+  "long_description": "Description\n===========\n\nA Chef cookbook for installing and configuring boto.\n\n# Cookbook Dependencies\n\n* python\n* build-essential\n\nUsage\n=====\n\nExample node.json to install & configure boto, plus fetch a file from S3:\n\n\t{\n\t  \"boto\": {\n\t    \"install_method\":\"pip\",\n\t    \"aws_access_key_id\":\"foo\",\n\t    \"aws_secret_access_key\":\"bar\",\n\t    \"s3_fetch_bucket\":\"foo_bucket\",\n\t    \"s3_fetch_file\":\"foo_file.txt\",\n\t    \"s3_fetch_file_destination\":\"/tmp/foo_file.txt\",\n\t  },\n\t  \"run_list\": [ \"recipe[boto::default]\", \"recipe[boto::s3_fetch_file]\" ]\n\t}\n\nSame, but fetch and extract a zip file from S3 instead:\n\n\t{\n\t  \"boto\": {\n\t    \"install_method\":\"pip\",\n\t    \"aws_access_key_id\":\"foo\",\n\t    \"aws_secret_access_key\":\"bar\",\n\t    \"s3_fetch_bucket\":\"foo_bucket\",\n\t    \"s3_fetch_file\":\"foo_file.zip\",\n\t    \"s3_fetch_file_destination\":\"/tmp/foo_file.zip\",\n\t    \"s3_file_extract_destination\":\"/root\"\n\t  },\n\t  \"run_list\": [ \"recipe[boto::default]\", \"recipe[boto::s3_fetch_and_extract_file]\" ]\n\t}\n\nLicense and Author\n==================\n\nAuthor:: Chris Fordham (<chris.fordham@rightscale.com>)\n\nCopyright 2012, RightScale, Inc.\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.",
+  "recipes": {
+    "boto::s3_fetch_file": "Fetches and stores a file locally from S3.",
+    "boto::install_from_pip": "Installs boto using PIP.",
+    "boto::configure": "Configures boto.",
+    "boto::install": "Installs boto.",
+    "boto::ebs_create_snapshot": "Creates an EBS snapshot from a given EBS volume ID.",
+    "boto::install_from_source": "Installs boto from source.",
+    "boto::s3_store_file": "Stores a local file to an S3 bucket.",
+    "boto::s3_fetch_and_extract_file": "Fetches and extracts a file from S3.",
+    "boto::install_from_package": "Installs boto by package.",
+    "boto::default": "Installs & configures boto.",
+    "boto::ebs_restore_snapshot": "Restores an EBS snapshot from a given EBS volume ID."
+  },
+  "providing": {
+  },
+  "suggestions": {
+  },
   "groupings": {
+  },
+  "conflicting": {
   }
 }
