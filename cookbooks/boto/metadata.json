@@ -94,7 +94,9 @@
       "required": "recommended",
       "recipes": [
         "boto::ebs_attach_volume",
-        "boto::ebs_detach_volume"
+        "boto::ebs_detach_volume",
+        "boto::ebs_mount_volume",
+        "boto::ebs_umount_volume"
       ],
       "calculated": false,
       "type": "string"
