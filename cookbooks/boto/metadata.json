@@ -133,7 +133,7 @@
       "recipes": [
         "boto::ebs_restore_snapshot",
         "boto::ebs_attach_volume",
-        "boto::mount_volume"
+        "boto::ebs_mount_volume"
       ],
       "calculated": false,
       "type": "string"

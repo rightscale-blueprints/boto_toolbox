@@ -24,7 +24,7 @@ GIT
   remote: https://github.com/flaccid/cookbooks
   path: cookbooks/boto
   ref: master
-  sha: dad5cc7b4badddf8831d8b415256fe401c15af0e
+  sha: b767b6f37bcd29cab37b3ef7443c8a5bbc5fc192
   specs:
     boto (0.0.1)
       python (>= 0.0.0)
