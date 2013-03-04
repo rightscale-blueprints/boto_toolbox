@@ -132,7 +132,8 @@
       ],
       "recipes": [
         "boto::ebs_restore_snapshot",
-        "boto::ebs_attach_volume"
+        "boto::ebs_attach_volume",
+        "boto::mount_volume"
       ],
       "calculated": false,
       "type": "string"
@@ -376,6 +377,7 @@
     "boto::ebs_print_attached_volumes": "Prints all EBS volumes attached to an instance.",
     "boto::ebs_restore_snapshot": "Restores an EBS snapshot from a given EBS snapshot ID.",
     "boto::ec2_print_instance_id": "Prints the instance ID of the host instance.",
+    "boto::ebs_unmount_volume": "Un-mounts an EBS volume attached to an instance (only requires the block device).",
     "boto::ec2_print_instance_metadata": "Prints the instance metadata of the host instance in JSON format.",
     "boto::install": "Installs boto.",
     "boto::install_from_package": "Installs boto by package.",
