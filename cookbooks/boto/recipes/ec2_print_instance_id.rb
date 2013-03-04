@@ -1,5 +1,5 @@
 # Cookbook Name:: boto
-# Recipe:: ebs_restore_snapshot
+# Recipe:: ec2_print_instance_id
 #
 # Copyright 2012, Chris Fordham
 #
@@ -17,24 +17,16 @@
 
 include_recipe "boto"
 
-script "restore_ebs_snapshot" do
+script "print_instance_id" do
   interpreter node['boto']['python']['interpreter']
   user "root"
   cwd "/tmp"
   code <<-EOH
-import sys
-
 from boto.ec2.connection import EC2Connection
-from boto.ec2.regioninfo import RegionInfo
-from datetime import datetime
+from boto.utils import get_instance_metadata
 
-region = RegionInfo(endpoint='#{node['boto']['ec2']['region']['endpoint']}', name='#{node['boto']['ec2']['region']['name']}')
-connection = EC2Connection(region=region)
-
-# create a new volume from the snapshot
-volume = connection.create_volume(#{node['boto']['ebs']['volume']['size']}, '#{node['boto']['ec2']['availability_zone']}', '#{node['boto']['ebs']['snapshot']['id']}')
-
-# attach the volume
-volume.attach('#{node['boto']['ec2']['instance']['id']}', '#{node['boto']['ec2']['ebs']['block_device']}')
+connection = EC2Connection()
+metadata = get_instance_metadata()
+print 'This instance's EC2 instance ID: ' + metadata['instance-id']
   EOH
 end

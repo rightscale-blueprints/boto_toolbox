@@ -1,5 +1,5 @@
 # Cookbook Name:: boto
-# Recipe:: ebs_restore_snapshot
+# Recipe:: ebs_detach_volume
 #
 # Copyright 2012, Chris Fordham
 #
@@ -17,24 +17,19 @@
 
 include_recipe "boto"
 
-script "restore_ebs_snapshot" do
+script "detach_ebs_volume" do
   interpreter node['boto']['python']['interpreter']
   user "root"
   cwd "/tmp"
   code <<-EOH
-import sys
-
 from boto.ec2.connection import EC2Connection
 from boto.ec2.regioninfo import RegionInfo
-from datetime import datetime
 
 region = RegionInfo(endpoint='#{node['boto']['ec2']['region']['endpoint']}', name='#{node['boto']['ec2']['region']['name']}')
 connection = EC2Connection(region=region)
 
-# create a new volume from the snapshot
-volume = connection.create_volume(#{node['boto']['ebs']['volume']['size']}, '#{node['boto']['ec2']['availability_zone']}', '#{node['boto']['ebs']['snapshot']['id']}')
+volume = connection.get_all_volumes('#{node['boto']['ec2']['ebs']['volume']['id']}')[0]
 
-# attach the volume
-volume.attach('#{node['boto']['ec2']['instance']['id']}', '#{node['boto']['ec2']['ebs']['block_device']}')
+volume.detach('#{node['boto']['ec2']['instance']['id']}', '#{node['boto']['ec2']['ebs']['block_device']}')
   EOH
 end

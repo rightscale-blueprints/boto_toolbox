@@ -1,5 +1,5 @@
 # Cookbook Name:: boto
-# Recipe:: ebs_restore_snapshot
+# Recipe:: ebs_print_attached_volumes
 #
 # Copyright 2012, Chris Fordham
 #
@@ -22,19 +22,15 @@ script "restore_ebs_snapshot" do
   user "root"
   cwd "/tmp"
   code <<-EOH
-import sys
-
 from boto.ec2.connection import EC2Connection
-from boto.ec2.regioninfo import RegionInfo
-from datetime import datetime
+from boto.utils import get_instance_metadata
 
-region = RegionInfo(endpoint='#{node['boto']['ec2']['region']['endpoint']}', name='#{node['boto']['ec2']['region']['name']}')
-connection = EC2Connection(region=region)
+#instance_id = open('/var/spool/cloud/meta-data/instance-id', 'r').read()
 
-# create a new volume from the snapshot
-volume = connection.create_volume(#{node['boto']['ebs']['volume']['size']}, '#{node['boto']['ec2']['availability_zone']}', '#{node['boto']['ebs']['snapshot']['id']}')
+conn = EC2Connection()
+m = get_instance_metadata()
+volumes = [v for v in conn.get_all_volumes() if v.attach_data.instance_id == m['instance-id']]
 
-# attach the volume
-volume.attach('#{node['boto']['ec2']['instance']['id']}', '#{node['boto']['ec2']['ebs']['block_device']}')
+print volumes[0].attach_data.device
   EOH
 end
