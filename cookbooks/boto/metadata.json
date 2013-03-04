@@ -27,6 +27,7 @@
       "required": "optional",
       "recipes": [
         "boto::ebs_create_snapshot",
+        "boto::ebs_restore_snapshot",
         "boto::ebs_attach_volume",
         "boto::ebs_detach_volume"
       ],
@@ -132,7 +133,8 @@
         "boto::ebs_create_snapshot",
         "boto::ebs_restore_snapshot",
         "boto::ebs_attach_volume",
-        "boto::ebs_detach_volume"
+        "boto::ebs_detach_volume",
+        "boto::ebs_print_attached_volumes"
       ],
       "calculated": false,
       "type": "string"
@@ -153,7 +155,8 @@
         "boto::ebs_create_snapshot",
         "boto::ebs_restore_snapshot",
         "boto::ebs_attach_volume",
-        "boto::ebs_detach_volume"
+        "boto::ebs_detach_volume",
+        "boto::ebs_print_attached_volumes"
       ],
       "calculated": false,
       "type": "string"
@@ -335,6 +338,7 @@
     "boto::default": "Installs & configures boto.",
     "boto::ebs_attach_volume": "Attaches a given EBS volume to an instance.",
     "boto::ebs_create_snapshot": "Creates an EBS snapshot from a given EBS volume ID.",
+    "boto::ebs_detach_volume": "Detaches a given EBS volume from an instance.",
     "boto::ebs_mount_volume": "Mounts an EBS volume attached to an instance.",
     "boto::ebs_print_attached_volumes": "Prints all EBS volumes attached to an instance.",
     "boto::ebs_restore_snapshot": "Restores an EBS snapshot from a given EBS snapshot ID.",

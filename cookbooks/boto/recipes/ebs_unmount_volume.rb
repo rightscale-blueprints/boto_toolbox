@@ -1,5 +1,5 @@
 # Cookbook Name:: boto
-# Recipe:: ebs_mount_volume
+# Recipe:: ebs_unmount_volume
 #
 # Copyright 2012, Chris Fordham
 #
@@ -15,8 +15,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-directory "#{node['boto']['ebs']['mount_point']}"
-
-execute "mount_ebs_volume" do
- command "mount #{node['boto']['ebs']['block_device']} #{node['boto']['ebs']['mount_point']}"
+execute "unmount_ebs_volume" do
+ command "umount #{node['boto']['ebs']['mount_point']}"
 end
