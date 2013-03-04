@@ -29,7 +29,7 @@ attribute "boto/ec2/instance/id",
   :display_name => "boto EC2 instance ID",
   :description => "The EC2 instance ID to use for operations such as backup and restore (default is the instance ID of the host running the recipe).",
   :required => "optional",
-  :recipes => [ "boto::ebs_create_snapshot", "boto::ebs_restore_snapshot", "boto::ebs_attach_volume", "boto::ebs_detach_volume" ]
+  :recipes => [ "boto::ebs_create_snapshot", "boto::ebs_restore_snapshot", "boto::ebs_attach_volume" ]
 
 attribute "boto/ebs/volume/id",
   :display_name => "boto EBS volume ID",
@@ -44,13 +44,21 @@ attribute "boto/ebs/volume/size",
   :required => "recommended",
   :recipes => [ "boto::ebs_create_snapshot", "boto::ebs_restore_snapshot" ]
 
+attribute "boto/ebs/volume/force_detach",
+  :display_name => "boto EBS force detach",
+  :description => "Whether to force detachment when detaching an EBS volume from an instance.",
+  :default => "False",
+  :choice => [ "False", "True" ],
+  :required => "optional",
+  :recipes => [ "boto::ebs_detach_volume" ]  
+
 attribute "boto/ebs/volume/block_device",
   :display_name => "boto EBS volume block device",
   :description => "The EBS volume block device to use for operations such as backup and restore.",
   :default => "/dev/sdh",
   :required => "recommended",
   :choice => [ '/dev/sde', '/dev/sdf', '/dev/sdg', '/dev/sdh', '/dev/sdi', '/dev/sdj', '/dev/sdk', '/dev/sdl', '/dev/sdm', '/dev/sdn', '/dev/sdo', '/dev/sdp', '/dev/sdq', '/dev/sdr', '/dev/sds', '/dev/sdt', '/dev/sdu', '/dev/sdv', '/dev/sdw', '/dev/sdx', '/dev/sdy', '/dev/sdz' ],
-  :recipes => [ "boto::ebs_restore_snapshot", "boto::ebs_attach_volume", "boto::ebs_detach_volume" ]
+  :recipes => [ "boto::ebs_restore_snapshot", "boto::ebs_attach_volume" ]
   
 attribute "boto/ebs/snapshot/id",
   :display_name => "boto EBS snapshot ID",
