@@ -81,7 +81,7 @@
       "calculated": false,
       "type": "string"
     },
-    "boto/ebs/mount_point": {
+    "boto/ebs/volume/mount_point": {
       "display_name": "boto EBS mount point",
       "description": "The mount point used when attaching or detaching an EBS volume.",
       "default": "/mnt/ebs",
@@ -96,7 +96,7 @@
         "boto::ebs_attach_volume",
         "boto::ebs_detach_volume",
         "boto::ebs_mount_volume",
-        "boto::ebs_umount_volume"
+        "boto::ebs_unmount_volume"
       ],
       "calculated": false,
       "type": "string"
