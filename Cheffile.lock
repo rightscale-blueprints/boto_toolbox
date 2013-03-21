@@ -15,7 +15,7 @@ GIT
 GIT
   remote: https://github.com/flaccid/chef-collectd
   ref: master
-  sha: 5d951bbe4e046c0cc4b175e9785ffa784794e130
+  sha: 31ab29ebd4134813fd8e485c03498e6a203e46d1
   specs:
     collectd (1.0.0)
       apache2 (>= 0.0.0)
@@ -24,7 +24,7 @@ GIT
   remote: https://github.com/flaccid/cookbooks
   path: cookbooks/boto
   ref: master
-  sha: 5a7816c9289a8c9f7099c08e467604163b4fa94c
+  sha: f645861ececf66f414ea8a75073c775a52198585
   specs:
     boto (0.0.1)
       python (>= 0.0.0)
@@ -41,7 +41,7 @@ GIT
   remote: https://github.com/flaccid/cookbooks
   path: cookbooks/rightscale
   ref: master
-  sha: ea868ac6304f6a3238a72c5b6e3ba67d0b40d762
+  sha: f645861ececf66f414ea8a75073c775a52198585
   specs:
     rightscale (0.0.1)
       collectd (>= 0.0.0)
@@ -58,9 +58,9 @@ GIT
 GIT
   remote: https://github.com/opscode-cookbooks/apache2
   ref: master
-  sha: 3c04a83e0a1ce7f4806d83adb2b7a01c0ae2777e
+  sha: 4ec83f21528344cb802915f76838e64891e47e61
   specs:
-    apache2 (1.5.0)
+    apache2 (1.6.1)
 
 GIT
   remote: https://github.com/opscode-cookbooks/cron
