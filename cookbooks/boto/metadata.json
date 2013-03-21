@@ -21,6 +21,21 @@
   "replacing": {
   },
   "attributes": {
+    "boto/fsfreeze": {
+      "display_name": "boto Filesystem Freeze",
+      "description": "Whether to use fsfreeze when creating EBS snapshots.",
+      "required": "recommended",
+      "default": "true",
+      "choice": [
+        "true",
+        "false"
+      ],
+      "recipes": [
+        "boto::ebs_create_snapshot"
+      ],
+      "calculated": false,
+      "type": "string"
+    },
     "boto/ec2/instance/id": {
       "display_name": "boto EC2 instance ID",
       "description": "The EC2 instance ID to use for operations such as backup and restore (default is the instance ID of the host running the recipe).",
@@ -95,7 +110,8 @@
       "recipes": [
         "boto::ebs_attach_volume",
         "boto::ebs_mount_volume",
-        "boto::ebs_unmount_volume"
+        "boto::ebs_unmount_volume",
+        "boto::ebs_create_snapshot"
       ],
       "calculated": false,
       "type": "string"
