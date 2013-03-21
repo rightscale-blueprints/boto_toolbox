@@ -2,7 +2,7 @@ SITE
   remote: http://community.opscode.com/api/v1
   specs:
     build-essential (1.3.4)
-    yum (2.1.0)
+    yum (2.2.0)
 
 GIT
   remote: https://github.com/coderanger/chef-collectd_plugins
@@ -24,7 +24,7 @@ GIT
   remote: https://github.com/flaccid/cookbooks
   path: cookbooks/boto
   ref: master
-  sha: d408bb1501c2c6a70eea0126728ac264fa311f01
+  sha: 5a7816c9289a8c9f7099c08e467604163b4fa94c
   specs:
     boto (0.0.1)
       python (>= 0.0.0)
