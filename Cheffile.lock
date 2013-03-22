@@ -15,7 +15,7 @@ GIT
 GIT
   remote: https://github.com/flaccid/chef-collectd
   ref: master
-  sha: 31ab29ebd4134813fd8e485c03498e6a203e46d1
+  sha: b0784d959e254b0b52715eb94909297b661a31ab
   specs:
     collectd (1.0.0)
       apache2 (>= 0.0.0)
