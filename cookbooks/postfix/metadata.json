@@ -301,5 +301,5 @@
     "postfix::client": "Searches for the relayhost based on an attribute",
     "postfix::server": "Sets the mail_type attribute to master"
   },
-  "version": "2.0.1"
+  "version": "2.1.4"
 }

@@ -24,7 +24,7 @@ GIT
   remote: https://github.com/flaccid/cookbooks
   path: cookbooks/boto
   ref: master
-  sha: 3ddc78fa168f019844e7fd2d12ef15d7763f36cb
+  sha: c70f7a7aa82537cb4e358e4e03bdafb44089aa9e
   specs:
     boto (0.0.1)
       python (>= 0.0.0)
@@ -33,7 +33,7 @@ GIT
   remote: https://github.com/flaccid/cookbooks
   path: cookbooks/resolver
   ref: master
-  sha: c9a2978a06be2264d498e57864fa7ec935eb1f14
+  sha: c70f7a7aa82537cb4e358e4e03bdafb44089aa9e
   specs:
     resolver (0.8.2)
 
@@ -41,7 +41,7 @@ GIT
   remote: https://github.com/flaccid/cookbooks
   path: cookbooks/rest_connection
   ref: master
-  sha: f645861ececf66f414ea8a75073c775a52198585
+  sha: c70f7a7aa82537cb4e358e4e03bdafb44089aa9e
   specs:
     rest_connection (0.0.1)
 
@@ -49,7 +49,7 @@ GIT
   remote: https://github.com/flaccid/cookbooks
   path: cookbooks/rightscale
   ref: master
-  sha: f645861ececf66f414ea8a75073c775a52198585
+  sha: c70f7a7aa82537cb4e358e4e03bdafb44089aa9e
   specs:
     rightscale (0.0.1)
       collectd (>= 0.0.0)
@@ -58,7 +58,7 @@ GIT
   remote: https://github.com/flaccid/cookbooks
   path: cookbooks/system
   ref: master
-  sha: 76f9b6f99b0dab9e88809452fb624de67b6a5a99
+  sha: c70f7a7aa82537cb4e358e4e03bdafb44089aa9e
   specs:
     system (0.0.1)
       cron (>= 0.0.0)
@@ -66,30 +66,30 @@ GIT
 GIT
   remote: https://github.com/opscode-cookbooks/apache2
   ref: master
-  sha: 4ec83f21528344cb802915f76838e64891e47e61
+  sha: 3ff273c6f150e94e6445c3f67f9e54ac34b30933
   specs:
     apache2 (1.6.1)
 
 GIT
   remote: https://github.com/opscode-cookbooks/cron
   ref: master
-  sha: c4ca4106ca86a8bbc12dcbc958836d074ca0717d
+  sha: 45fde9f0cddc4f7a20d53f5938612b6a886359e7
   specs:
-    cron (1.2.0)
+    cron (1.2.2)
 
 GIT
   remote: https://github.com/opscode-cookbooks/ntp
   ref: master
-  sha: 3991185e38b07a09f8a6a4994dc6d778670a11a2
+  sha: 9b8c32f7187fa54dc190d93db5c3f737055155ba
   specs:
-    ntp (1.1.9)
+    ntp (1.3.2)
 
 GIT
   remote: https://github.com/opscode-cookbooks/postfix
   ref: master
-  sha: 02b9f246e128ba70304bcdb586949690feb24918
+  sha: 9587dade56e56724954bba963cfc3d542bdbae18
   specs:
-    postfix (2.0.1)
+    postfix (2.1.4)
 
 GIT
   remote: https://github.com/opscode-cookbooks/python
@@ -103,9 +103,9 @@ GIT
 GIT
   remote: https://github.com/opscode-cookbooks/sudo
   ref: master
-  sha: e08de50f3d9327edb55676b1b6adb113ddc819dc
+  sha: 5c3238e1db680e80ba60a39d40765653babb752a
   specs:
-    sudo (1.1.1)
+    sudo (2.0.4)
 
 DEPENDENCIES
   apache2 (>= 0)

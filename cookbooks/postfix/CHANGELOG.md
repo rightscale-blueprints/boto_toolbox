@@ -1,3 +1,18 @@
+## v2.1.4:
+
+* [COOK-2281] - postfix aliases uses require_recipe statement
+
+## v2.1.2:
+
+* [COOK-2010] - postfix sasl_auth does not include the sasl plain
+  package
+
+## v2.1.0:
+
+* [COOK-1233] - optional configuration for canonical maps
+* [COOK-1660] - allow comma separated arrays in aliases
+* [COOK-1662] - allow inet_interfaces configuration via attribute
+
 ## v2.0.0:
 
 This version uses platform_family attribute, making the cookbook incompatible
