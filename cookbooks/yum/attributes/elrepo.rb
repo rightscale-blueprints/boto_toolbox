@@ -1,8 +1,8 @@
 #
-# Cookbook Name:: rest_connection
-# Recipe:: default
+# Cookbook Name:: yum
+# Attributes:: elrepo
 #
-# Copyright 2011, Chris Fordham
+# Copyright 2013, Opscode, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,4 +16,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-include_recipe "rest_connection::install"
+
+default['yum']['elrepo']['url'] = "http://elrepo.org/mirrors-elrepo.el#{node['platform_version'].to_i}"
+default['yum']['elrepo']['key'] = "RPM-GPG-KEY-elrepo.org"
+default['yum']['elrepo']['key_url'] = "http://elrepo.org/#{node['yum']['elrepo']['key']}"
+default['yum']['elrepo']['includepkgs'] = nil
+default['yum']['elrepo']['exclude'] = nil

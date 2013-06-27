@@ -1,9 +1,8 @@
 #
-# Cookbook Name:: yum
-# Attributes:: default
+# Cookbook Name:: build-essential
+# Recipe:: smartos
 #
-# Copyright 2011, Eric G. Wolfe
-# Copyright 2011, Opscode, Inc.
+# Copyright 2008-2013, Opscode, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,13 +17,20 @@
 # limitations under the License.
 #
 
-# Example: override.yum.exclude = "kernel* compat-glibc*"
-default['yum']['exclude'] = Array.new
-default['yum']['installonlypkgs'] = Array.new
-default['yum']['ius_release'] = '1.0-11'
-default['yum']['repoforge_release'] = '0.5.2-2'
-default['yum']['proxy'] = ''
-default['yum']['proxy_username'] = ''
-default['yum']['proxy_password'] = ''
-default['yum']['cachedir'] = '/var/cache/yum'
-default['yum']['keepcache'] = 0
+include_recipe 'pkgin'
+
+%w{
+  gcc47
+  gcc47-runtime
+  scmgit-base
+  gmake
+  pkg-config
+  binutils
+}.each do |pkg|
+
+  r = pkgin_package pkg do
+    action( node['build_essential']['compiletime'] ? :nothing : :install )
+  end
+  r.run_action(:install) if node['build_essential']['compiletime']
+
+end
